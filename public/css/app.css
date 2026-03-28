@@ -1,0 +1,372 @@
+:root {
+    --paper: #f7f1e8;
+    --paper-strong: #efe2d2;
+    --ink: #1f1a17;
+    --muted: #73685e;
+    --accent: #c36d4f;
+    --accent-deep: #9f4b2d;
+    --sage: #8f9d88;
+    --card: #fffdf9;
+    --line: rgba(31, 26, 23, 0.08);
+    --shadow: 0 24px 60px rgba(44, 31, 22, 0.08);
+}
+
+body {
+    background: radial-gradient(circle at top left, rgba(195, 109, 79, 0.18), transparent 30%),
+        linear-gradient(180deg, #fbf7f1 0%, #f3ece2 100%);
+    color: var(--ink);
+    font-family: "Manrope", sans-serif;
+    min-height: 100vh;
+}
+
+a {
+    color: inherit;
+}
+
+.navbar-brand,
+.hero-title,
+.display-6,
+.display-4,
+.display-3,
+.display-2,
+h1,
+h2,
+h3,
+h4 {
+    font-family: "Cormorant Garamond", serif;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(14px);
+    background: rgba(251, 247, 241, 0.85);
+    border-bottom: 1px solid var(--line);
+}
+
+.navbar-brand {
+    font-size: 2rem;
+    letter-spacing: 0.02em;
+}
+
+.nav-link {
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.nav-link:hover,
+.section-link,
+.post-link,
+.site-footer a {
+    color: var(--accent-deep);
+}
+
+.section-space,
+.page-hero,
+.hero-section {
+    padding: 5rem 0;
+}
+
+.hero-section {
+    padding-top: 6rem;
+}
+
+.eyebrow,
+.footer-label {
+    color: var(--accent-deep);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.hero-copy,
+.hero-text,
+.section-heading p,
+.footer-copy,
+.article-body,
+.empty-panel,
+.admin-sidebar-copy {
+    color: var(--muted);
+}
+
+.profile-panel,
+.featured-post,
+.post-card,
+.empty-panel,
+.admin-stat,
+.login-card {
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow: var(--shadow);
+}
+
+.profile-panel {
+    padding: 1.25rem;
+    border-radius: 2rem;
+}
+
+.profile-image,
+.featured-post-image,
+.post-hero-image,
+.admin-preview-image,
+.admin-grid-image,
+.post-card-image {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.profile-image {
+    min-height: 520px;
+    max-height: 640px;
+    border-radius: 1.5rem;
+}
+
+.featured-post {
+    border-radius: 2rem;
+}
+
+.featured-post-image,
+.featured-placeholder {
+    min-height: 420px;
+    height: 100%;
+    background: linear-gradient(160deg, rgba(195, 109, 79, 0.45), rgba(143, 157, 136, 0.5));
+}
+
+.featured-post-body {
+    padding: 3rem;
+}
+
+.section-heading {
+    margin-bottom: 2rem;
+}
+
+.post-card,
+.instagram-card,
+.admin-stat,
+.empty-panel {
+    border-radius: 1.5rem;
+}
+
+.post-card-image,
+.post-card-placeholder {
+    height: 280px;
+}
+
+.post-card-placeholder,
+.instagram-placeholder,
+.admin-grid-image {
+    background: linear-gradient(160deg, rgba(195, 109, 79, 0.25), rgba(143, 157, 136, 0.32));
+}
+
+.post-meta,
+.section-link,
+.post-link {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.instagram-section {
+    padding-bottom: 6rem;
+}
+
+.instagram-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.instagram-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+    text-decoration: none;
+}
+
+.instagram-card img,
+.instagram-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    object-fit: cover;
+}
+
+.instagram-overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 1.25rem;
+    color: #fff;
+    background: linear-gradient(180deg, transparent, rgba(15, 12, 10, 0.88));
+}
+
+.page-hero {
+    padding-bottom: 2rem;
+}
+
+.post-detail-excerpt {
+    max-width: 780px;
+}
+
+.post-hero-image {
+    max-height: 620px;
+    border-radius: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.article-body {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    white-space: normal;
+}
+
+.site-footer {
+    padding: 2rem 0 3rem;
+    border-top: 1px solid var(--line);
+}
+
+.empty-panel {
+    padding: 2rem;
+}
+
+.login-body,
+.admin-body {
+    background: linear-gradient(180deg, #f4ecdf 0%, #efe4d4 100%);
+}
+
+.login-card {
+    max-width: 580px;
+    border-radius: 2rem;
+    margin-top: 4rem;
+}
+
+.admin-shell {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 2rem;
+    background: rgba(255, 250, 245, 0.9);
+    border-right: 1px solid var(--line);
+}
+
+.admin-brand {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    text-decoration: none;
+}
+
+.admin-main {
+    padding: 2rem;
+}
+
+.admin-header {
+    margin-bottom: 2rem;
+}
+
+.admin-nav-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.85rem 1rem;
+    border-radius: 999px;
+    color: var(--muted);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.admin-nav-link.active,
+.admin-nav-link:hover {
+    background: rgba(31, 26, 23, 0.07);
+    color: var(--ink);
+}
+
+.admin-preview-image,
+.admin-grid-image {
+    height: 240px;
+    border-radius: 1rem;
+}
+
+.admin-grid-image {
+    border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.table > :not(caption) > * > * {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.form-control,
+.form-check-input {
+    border-color: rgba(31, 26, 23, 0.14);
+}
+
+.form-control:focus,
+.form-check-input:focus,
+.btn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(195, 109, 79, 0.18);
+    border-color: rgba(195, 109, 79, 0.4);
+}
+
+.btn-dark {
+    background: var(--ink);
+    border-color: var(--ink);
+}
+
+.btn-outline-dark {
+    border-color: rgba(31, 26, 23, 0.22);
+}
+
+.pagination {
+    gap: 0.35rem;
+}
+
+.page-link {
+    border-radius: 999px !important;
+    border: 0;
+    color: var(--ink);
+}
+
+.page-item.active .page-link {
+    background: var(--ink);
+}
+
+@media (max-width: 991.98px) {
+    .hero-section,
+    .section-space,
+    .page-hero {
+        padding: 4rem 0;
+    }
+
+    .profile-image {
+        min-height: 360px;
+    }
+
+    .admin-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-sidebar {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+    }
+}
+
+@media (max-width: 575.98px) {
+    .featured-post-body,
+    .admin-main,
+    .admin-sidebar {
+        padding: 1.25rem;
+    }
+
+    .hero-title {
+        font-size: 3.2rem;
+    }
+}
