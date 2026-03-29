@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\InstagramItem;
 use App\Models\Post;
 use App\Models\SiteSetting;
-use App\Support\SqliteDatabaseManager;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -20,9 +19,6 @@ class DashboardController extends Controller
             'instagramCount' => InstagramItem::count(),
             'settings' => SiteSetting::current(),
             'recentPosts' => Post::latest('updated_at')->take(5)->get(),
-            'databaseDriver' => config('database.connections.'.config('database.default').'.driver'),
-            'databasePath' => SqliteDatabaseManager::path(),
-            'databaseExists' => SqliteDatabaseManager::exists(),
         ]);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Support\SqliteDatabaseManager;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,7 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        SqliteDatabaseManager::ensureExists();
         Paginator::useBootstrapFive();
     }
 }

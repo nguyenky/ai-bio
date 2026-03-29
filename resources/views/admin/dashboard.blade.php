@@ -83,7 +83,7 @@
             </div>
         </div>
         <div class="col-xl-5">
-            <div class="card border-0 shadow-sm mb-4">
+            <div class="card border-0 shadow-sm h-100">
                 <div class="card-body p-4">
                     <h2 class="h4 mb-3">Homepage snapshot</h2>
                     <p class="text-secondary mb-2">Current hero heading</p>
@@ -91,33 +91,6 @@
                     <p class="text-secondary mb-2 mt-4">Short bio</p>
                     <p class="mb-4">{{ $settings->short_bio }}</p>
                     <a class="btn btn-outline-dark rounded-pill px-4" href="{{ route('admin.settings.edit') }}">Edit homepage settings</a>
-                </div>
-            </div>
-
-            <div class="card border-0 shadow-sm">
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start gap-3">
-                        <div>
-                            <h2 class="h4 mb-2">Database status</h2>
-                            <p class="text-secondary mb-0">This admin panel writes posts, Instagram items, and site settings into your configured database.</p>
-                        </div>
-                        <span class="badge text-bg-dark text-uppercase">{{ $databaseDriver }}</span>
-                    </div>
-
-                    @if ($databasePath)
-                        <p class="small text-secondary mt-3 mb-1">SQLite file</p>
-                        <p class="small mb-3" style="word-break: break-all;">{{ $databasePath }}</p>
-                    @endif
-
-                    <p class="mb-4">
-                        @if ($databaseExists)
-                            <span class="badge text-bg-success">Ready</span>
-                        @else
-                            <span class="badge text-bg-warning">Missing</span>
-                        @endif
-                    </p>
-
-                    <a class="btn btn-outline-dark rounded-pill px-4" href="{{ route('admin.database.show') }}">Open database tools</a>
                 </div>
             </div>
         </div>

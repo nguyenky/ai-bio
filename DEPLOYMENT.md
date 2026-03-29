@@ -5,7 +5,7 @@ This project is prepared for:
 - private GitHub repository
 - pull request based workflow
 - GitHub Actions CI on every PR to `main`
-- deployment from `main` after merge
+- Laravel Cloud production auto-deploy from `main`
 
 ## GitHub Flow
 
@@ -45,17 +45,14 @@ GitHub Actions workflow:
   - `composer install`
   - `php artisan test`
 
-## Production Setup
+## Laravel Cloud Setup
 
-This app now defaults to SQLite. That means your production server must have:
-
-- a writable `database/` directory
-- a persistent filesystem for the SQLite file
-- PHP with `pdo_sqlite` enabled
-
-If your host wipes the filesystem on each deploy, SQLite data will be recreated and you can lose content. In that setup, use a host with persistent disk or switch back to MySQL/PostgreSQL later.
-
-Laravel Cloud is not a good fit for persistent SQLite production data because its environment filesystems are ephemeral. Keep SQLite for local development or deploy this SQLite version to a VPS / host with persistent writable storage instead.
+1. Create a Laravel Cloud project.
+2. Connect the GitHub repository.
+3. Create one production environment.
+4. Set `main` as the auto-deploy branch.
+5. Attach a managed MySQL database.
+6. Attach Laravel Object Storage or another S3-compatible bucket.
 
 ## Production Environment Variables
 
@@ -66,20 +63,19 @@ Important values:
 - `APP_ENV=production`
 - `APP_DEBUG=false`
 - `APP_URL=<production-url>`
-- `DB_CONNECTION=sqlite`
-- leave `DB_DATABASE` unset to use Laravel's default `database/database.sqlite`
-- `FILESYSTEM_DISK=local`
-- `UPLOADS_DISK=public`
+- `DB_CONNECTION=mysql`
+- production database credentials from Laravel Cloud
+- `FILESYSTEM_DISK=s3`
+- `UPLOADS_DISK=s3`
 - `SEED_DEMO_CONTENT=false`
 
 Do not keep a long-lived production admin password in deploy config.
 
 ## Deploy Command
 
-Run these commands during deployment:
+Use this Laravel Cloud deploy command:
 
 ```bash
-php artisan app:prepare-sqlite
 php artisan migrate --force
 php artisan config:cache
 php artisan route:cache
@@ -102,4 +98,4 @@ After the first live deployment:
 - blog list loads
 - post detail loads
 - admin login works
-- admin database page shows the SQLite file as ready
+- create one upload and confirm it still renders after redeploy

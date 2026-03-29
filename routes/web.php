@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Admin\DatabaseController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InstagramItemController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
@@ -22,8 +21,6 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
 
     Route::middleware('auth')->group(function (): void {
         Route::get('/', DashboardController::class)->name('dashboard');
-        Route::get('/database', [DatabaseController::class, 'show'])->name('database.show');
-        Route::post('/database/initialize', [DatabaseController::class, 'initialize'])->name('database.initialize');
         Route::post('/instagram-items/import', [InstagramItemController::class, 'import'])->name('instagram-items.import');
         Route::resource('posts', AdminPostController::class)->except(['show']);
         Route::resource('instagram-items', InstagramItemController::class)->except(['show']);
