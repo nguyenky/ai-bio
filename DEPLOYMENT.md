@@ -5,7 +5,7 @@ This project is prepared for:
 - private GitHub repository
 - pull request based workflow
 - GitHub Actions CI on every PR to `main`
-- Laravel Cloud production auto-deploy from `main`
+- deployment from `main` after merge
 
 ## GitHub Flow
 
@@ -45,14 +45,17 @@ GitHub Actions workflow:
   - `composer install`
   - `php artisan test`
 
-## Laravel Cloud Setup
+## Production Setup
 
-1. Create a Laravel Cloud project.
-2. Connect the GitHub repository.
-3. Create one production environment.
-4. Set `main` as the auto-deploy branch.
-5. Attach a managed MySQL database.
-6. Attach Laravel Object Storage or another S3-compatible bucket.
+This app now defaults to SQLite. That means your production server must have:
+
+- a writable `database/` directory
+- a persistent filesystem for the SQLite file
+- PHP with `pdo_sqlite` enabled
+
+If your host wipes the filesystem on each deploy, SQLite data will be recreated and you can lose content. In that setup, use a host with persistent disk or switch back to MySQL/PostgreSQL later.
+
+Laravel Cloud is not a good fit for persistent SQLite production data because its environment filesystems are ephemeral. Keep SQLite for local development or deploy this SQLite version to a VPS / host with persistent writable storage instead.
 
 ## Production Environment Variables
 
@@ -62,21 +65,21 @@ Important values:
 
 - `APP_ENV=production`
 - `APP_DEBUG=false`
-- `APP_URL=<cloud-url-or-custom-domain>`
-- `DB_CONNECTION=mysql`
-- production database credentials from Laravel Cloud
-- `FILESYSTEM_DISK=s3`
-- `UPLOADS_DISK=s3`
-- object storage credentials
+- `APP_URL=<production-url>`
+- `DB_CONNECTION=sqlite`
+- leave `DB_DATABASE` unset to use Laravel's default `database/database.sqlite`
+- `FILESYSTEM_DISK=local`
+- `UPLOADS_DISK=public`
 - `SEED_DEMO_CONTENT=false`
 
 Do not keep a long-lived production admin password in deploy config.
 
 ## Deploy Command
 
-Use this Laravel Cloud deploy command:
+Run these commands during deployment:
 
 ```bash
+php artisan app:prepare-sqlite
 php artisan migrate --force
 php artisan config:cache
 php artisan route:cache
@@ -88,10 +91,8 @@ php artisan view:cache
 After the first successful deploy, create the admin user manually:
 
 ```bash
-php artisan app:create-admin admin@example.com --name="Site Owner"
+php artisan app:create-admin admin@example.com --name="Site Owner" --password="your-strong-password"
 ```
-
-You can omit `--password` and enter it interactively.
 
 ## Production Smoke Check
 
@@ -101,4 +102,4 @@ After the first live deployment:
 - blog list loads
 - post detail loads
 - admin login works
-- create one upload and confirm it still renders after redeploy
+- admin database page shows the SQLite file as ready

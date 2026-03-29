@@ -9,8 +9,8 @@ Personal blog web app built with Laravel, Blade, Bootstrap 5, and Alpine.js. It 
 - Blade templates
 - Bootstrap 5 with custom CSS theme
 - Alpine.js
-- MySQL in local and production
-- S3-compatible object storage for persistent production uploads
+- SQLite by default
+- Local/public uploads by default
 
 ## Features
 
@@ -22,7 +22,7 @@ Personal blog web app built with Laravel, Blade, Bootstrap 5, and Alpine.js. It 
 - Instagram item CRUD with upload or external image URL
 - Bulk Instagram link import with best-effort public metadata fetch
 - Homepage/settings editor for intro copy, social links, profile image, and SEO
-- Portable migrations that avoid database-vendor-specific schema behavior
+- SQLite-first setup with automatic database-file creation
 
 ## Main Routes
 
@@ -50,10 +50,9 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-3. Create the local MySQL database and run migrations:
+3. Run migrations and create the public storage link:
 
 ```bash
-mysql -uroot -e "CREATE DATABASE IF NOT EXISTS ai_bio CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 php artisan migrate:fresh --seed
 php artisan storage:link
 ```
@@ -78,19 +77,28 @@ Current local defaults:
 
 ## Production Notes
 
-This app is prepared for Laravel Cloud style deployment:
+This app is prepared to run with SQLite in environments that provide a persistent writable filesystem:
 
-- keep production on MySQL
-- use object storage for uploads because production filesystems are ephemeral
+- keep `DB_CONNECTION=sqlite`
+- let Laravel use `database/database.sqlite`
+- make sure the `database/` directory is writable
 - do not seed demo content in production
 - create the first admin user with the Artisan command instead of storing a permanent admin password in deploy config
 
+Laravel Cloud is not suitable for persistent SQLite production storage because its filesystem resets across deployments. If you stay on SQLite in production, deploy to a VPS or another host with persistent disk.
+
 Example production environment settings live in [.env.production.example](/Users/kyle/workspaces/kyle/openai/ai-bio/.env.production.example).
+
+Before running migrations in a fresh environment, make sure the SQLite file exists:
+
+```bash
+php artisan app:prepare-sqlite
+```
 
 To create the initial production admin user after the first deploy:
 
 ```bash
-php artisan app:create-admin admin@example.com --name="Site Owner"
+php artisan app:create-admin admin@example.com --name="Site Owner" --password="your-strong-password"
 ```
 
 ## Upload Storage
@@ -98,9 +106,9 @@ php artisan app:create-admin admin@example.com --name="Site Owner"
 The app now uses `UPLOADS_DISK` for user-uploaded media:
 
 - local development: `UPLOADS_DISK=public`
-- production: `UPLOADS_DISK=s3`
+- production default: `UPLOADS_DISK=public`
 
-This lets the app keep simple local uploads while storing persistent production files in S3-compatible object storage.
+If you later move to object storage, you can switch `UPLOADS_DISK` without changing the content-management UI.
 
 ## Demo Content
 
@@ -121,5 +129,6 @@ php artisan route:list
 php artisan test
 php artisan view:cache
 php artisan migrate:fresh --seed
-php artisan app:create-admin admin@example.com --name="Site Owner"
+php artisan app:prepare-sqlite
+php artisan app:create-admin admin@example.com --name="Site Owner" --password="your-strong-password"
 ```

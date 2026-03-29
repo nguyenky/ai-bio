@@ -20,6 +20,7 @@
                 <a class="admin-nav-link @if (request()->routeIs('admin.dashboard')) active @endif" href="{{ route('admin.dashboard') }}">Dashboard</a>
                 <a class="admin-nav-link @if (request()->routeIs('admin.posts.*')) active @endif" href="{{ route('admin.posts.index') }}">Posts</a>
                 <a class="admin-nav-link @if (request()->routeIs('admin.instagram-items.*')) active @endif" href="{{ route('admin.instagram-items.index') }}">Instagram Items</a>
+                <a class="admin-nav-link @if (request()->routeIs('admin.database.*')) active @endif" href="{{ route('admin.database.show') }}">Database</a>
                 <a class="admin-nav-link @if (request()->routeIs('admin.settings.*')) active @endif" href="{{ route('admin.settings.edit') }}">Settings</a>
                 <a class="admin-nav-link" href="{{ route('home') }}" target="_blank" rel="noreferrer">View Site</a>
             </nav>
